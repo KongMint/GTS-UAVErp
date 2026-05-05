@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UAV ERP - Flight Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>UAV ERP - Flight Dashboard</h1>
+      <p>Theo doi tuyen giao hang va nhat ky chuyen bay</p>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>Bo loc</h2>
+        <div class="grid filters">
+          <label>
+            Tu ngay
+            <input id="filterFromDate" type="date" />
+          </label>
+          <label>
+            Den ngay
+            <input id="filterToDate" type="date" />
+          </label>
+          <label>
+            UAV ID
+            <input id="filterUavId" type="text" placeholder="VD: UAV-01" />
+          </label>
+          <label>
+            Pilot
+            <input id="filterPilot" type="text" placeholder="Ten phi cong" />
+          </label>
+          <label>
+            Flight result
+            <select id="filterResult">
+              <option value="">Tat ca</option>
+              <option value="Success">Success</option>
+              <option value="Partial">Partial</option>
+              <option value="Failed">Failed</option>
+            </select>
+          </label>
+          <label>
+            Co su co
+            <select id="filterIncident">
+              <option value="">Tat ca</option>
+              <option value="true">Co</option>
+              <option value="false">Khong</option>
+            </select>
+          </label>
+        </div>
+        <div class="actions">
+          <button id="applyFiltersBtn">Ap dung bo loc</button>
+          <button id="resetFiltersBtn" class="secondary">Xoa bo loc</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>KPI</h2>
+        <div class="kpi-grid">
+          <article class="kpi-item">
+            <h3>Tong chuyen</h3>
+            <p id="kpiTotalFlights">0</p>
+          </article>
+          <article class="kpi-item">
+            <h3>Ti le thanh cong</h3>
+            <p id="kpiSuccessRate">0%</p>
+          </article>
+          <article class="kpi-item">
+            <h3>Tong quang duong (km)</h3>
+            <p id="kpiDistance">0</p>
+          </article>
+          <article class="kpi-item">
+            <h3>Ti le co su co</h3>
+            <p id="kpiIncidentRate">0%</p>
+          </article>
+          <article class="kpi-item">
+            <h3>Ha canh chinh xac TB (m)</h3>
+            <p id="kpiLandingAccuracy">0</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Nhap chuyen bay</h2>
+        <form id="flightForm" class="grid form-grid">
+          <label>Flight ID<input name="flightId" required type="text" /></label>
+          <label>Ngay<input name="date" required type="date" /></label>
+          <label>UAV ID<input name="uavId" required type="text" /></label>
+          <label>Pilot<input name="pilot" required type="text" /></label>
+          <label>Payload (kg)<input name="payloadKg" min="0" step="0.01" type="number" /></label>
+          <label>Takeoff time<input name="takeoffTime" required type="time" /></label>
+          <label>Landing time<input name="landingTime" required type="time" /></label>
+          <label>Distance (km)<input name="distanceKm" min="0" step="0.01" type="number" /></label>
+          <label>Pin truoc (%)<input name="batteryBefore" min="0" max="100" type="number" /></label>
+          <label>Pin sau (%)<input name="batteryAfter" min="0" max="100" type="number" /></label>
+          <label>
+            GNSS
+            <select name="gnss">
+              <option value="">-- Chon --</option>
+              <option value="Good">Good</option>
+              <option value="Weak">Weak</option>
+              <option value="Lost">Lost</option>
+            </select>
+          </label>
+          <label>
+            Link
+            <select name="link">
+              <option value="">-- Chon --</option>
+              <option value="Stable">Stable</option>
+              <option value="Fluctuated">Fluctuated</option>
+              <option value="Lost">Lost</option>
+            </select>
+          </label>
+          <label>
+            Flight result
+            <select name="flightResult" required>
+              <option value="">-- Chon --</option>
+              <option value="Success">Success</option>
+              <option value="Partial">Partial</option>
+              <option value="Failed">Failed</option>
+            </select>
+          </label>
+          <label>Landing accuracy (m)<input name="landingAccuracy" min="0" step="0.01" type="number" /></label>
+          <label class="checkbox-label">
+            <input name="incident" type="checkbox" />
+            Co su co
+          </label>
+          <label class="full-width">
+            Ghi chu
+            <textarea name="notes" rows="3"></textarea>
+          </label>
+          <div class="actions full-width">
+            <button type="submit">Luu chuyen bay</button>
+            <button id="clearFormBtn" class="secondary" type="button">Xoa form</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="table-header">
+          <h2>Danh sach chuyen bay</h2>
+          <button id="clearAllBtn" class="danger">Xoa tat ca du lieu</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Flight ID</th>
+                <th>Ngay</th>
+                <th>UAV ID</th>
+                <th>Pilot</th>
+                <th>Payload</th>
+                <th>Takeoff</th>
+                <th>Landing</th>
+                <th>Flight time (min)</th>
+                <th>Distance</th>
+                <th>Pin truoc</th>
+                <th>Pin sau</th>
+                <th>GNSS</th>
+                <th>Link</th>
+                <th>Flight result</th>
+                <th>Landing acc.</th>
+                <th>Co su co</th>
+                <th>Ghi chu</th>
+              </tr>
+            </thead>
+            <tbody id="flightTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

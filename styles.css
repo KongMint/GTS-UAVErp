@@ -1,0 +1,165 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b1220;
+  color: #e5e7eb;
+}
+
+.page-header {
+  padding: 20px;
+  background: #111827;
+  border-bottom: 1px solid #1f2937;
+}
+
+.page-header h1 {
+  margin: 0;
+}
+
+.page-header p {
+  margin: 8px 0 0;
+  color: #9ca3af;
+}
+
+.container {
+  width: min(1400px, 96%);
+  margin: 16px auto 30px;
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+.filters {
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.form-grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: #d1d5db;
+}
+
+input,
+select,
+textarea,
+button {
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #f3f4f6;
+  padding: 10px;
+}
+
+button {
+  cursor: pointer;
+  border-color: #2563eb;
+  background: #2563eb;
+  font-weight: 700;
+}
+
+button.secondary {
+  background: #1f2937;
+  border-color: #4b5563;
+}
+
+button.danger {
+  background: #b91c1c;
+  border-color: #dc2626;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.kpi-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.kpi-item {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.kpi-item h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.kpi-item p {
+  margin: 8px 0 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1300px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #243041;
+  text-align: left;
+  padding: 10px;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+th {
+  color: #93c5fd;
+  font-weight: 700;
+}
