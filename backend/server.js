@@ -106,6 +106,7 @@ function toCsv(rows) {
     "Có sự cố",
     "Mô tả sự cố",
     "Ghi chú",
+    "Người báo cáo",
   ];
 
   const lines = [headers.join(",")];
@@ -129,6 +130,7 @@ function toCsv(rows) {
       f.incident ? "Có" : "Không",
       f.incidentDescription || "",
       f.notes,
+      f.reportedBy || "",
     ]
       .map(escapeCsvValue)
       .join(",");
@@ -217,6 +219,7 @@ app.post("/api/flights", authRequired, roleRequired(["admin", "dispatcher"]), (r
     incident: Boolean(body.incident),
     incidentDescription: body.incident ? String(body.incidentDescription || "").trim() : "",
     notes: body.notes ? String(body.notes).trim() : "",
+    reportedBy: String(body.reportedBy || req.user.name || req.user.username).trim(),
     createdAt: new Date().toISOString(),
   };
 
@@ -259,6 +262,7 @@ app.put("/api/flights/:id", authRequired, roleRequired(["admin", "dispatcher"]),
     incident: Boolean(body.incident),
     incidentDescription: body.incident ? String(body.incidentDescription || "").trim() : "",
     notes: body.notes ? String(body.notes).trim() : "",
+    reportedBy: String(body.reportedBy || flights[index].reportedBy || req.user.name || req.user.username).trim(),
     updatedAt: new Date().toISOString(),
   };
 
